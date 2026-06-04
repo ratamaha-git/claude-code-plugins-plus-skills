@@ -243,7 +243,7 @@
       "source": "./plugins/content/publishing-skills",
       "description": "Three composable Claude skills for shipping a long-tail SEO Ghost post end-to-end: topic research, draft & publish, and SVG figure generation.",
       "version": "1.0.0",
-      "category": "content",
+      "category": "productivity",
       "keywords": [
         "ghost",
         "blogging",
