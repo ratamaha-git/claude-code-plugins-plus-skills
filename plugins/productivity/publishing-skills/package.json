@@ -1,0 +1,35 @@
+{
+  "name": "@intentsolutionsio/publishing-skills",
+  "version": "1.0.0",
+  "description": "Three composable Claude skills for shipping a long-tail SEO Ghost post end-to-end: topic research, draft & publish, and SVG figure generation.",
+  "keywords": [
+    "ghost",
+    "blogging",
+    "seo",
+    "content-creation",
+    "publishing",
+    "claude-code",
+    "ai-writing",
+    "claude-plugin",
+    "tonsofskills"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeremylongshore/claude-code-plugins-plus-skills.git",
+    "directory": "plugins/productivity/publishing-skills"
+  },
+  "homepage": "https://automatelab.tech/products/skills-and-plugins/publishing-skills/",
+  "bugs": "https://github.com/jeremylongshore/claude-code-plugins-plus-skills/issues",
+  "license": "MIT",
+  "author": {
+    "name": "AutomateLab",
+    "url": "https://github.com/AutomateLab-tech"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "README.md",
+    ".claude-plugin"
+  ]
+}
