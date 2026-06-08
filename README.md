@@ -2,14 +2,14 @@
 
 [![Release](https://img.shields.io/badge/release-v4.33.0-green)](https://github.com/jeremylongshore/claude-code-plugins-plus-skills/releases/tag/v4.33.0)
 [![CLI](https://img.shields.io/badge/CLI-ccpi-blueviolet?logo=npm)](https://www.npmjs.com/package/@intentsolutionsio/ccpi)
-[![Plugins](https://img.shields.io/badge/plugins-431-blue)](https://tonsofskills.com/explore)
-[![Skills](https://img.shields.io/badge/skills-2%2C754-green)](https://tonsofskills.com/skills)
+[![Plugins](https://img.shields.io/badge/plugins-448-blue)](https://tonsofskills.com/explore)
+[![Skills](https://img.shields.io/badge/skills-3%2C008-green)](https://tonsofskills.com/skills)
 [![GitHub Stars](https://img.shields.io/github/stars/jeremylongshore/claude-code-plugins-plus-skills?style=social)](https://github.com/jeremylongshore/claude-code-plugins-plus-skills)
 [![Sponsor: Nixtla](https://img.shields.io/badge/Sponsor-nixtla.io-ff6b35)](https://nixtla.io)
 [![Sponsor: Kobiton](https://img.shields.io/badge/Sponsor-kobiton.com-0487D9)](https://kobiton.com)
 [![Buy me a monster](https://img.shields.io/badge/Buy%20me%20a-Monster-FFDD00?logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/jeremylongshore)
 
-432 plugins, 2,769 skills, 297 agents, 30 community contributors — validated and ready to install.
+448 plugins, 3,008 skills, 311 agents, 16 community contributors — validated and ready to install.
 
 ```bash
 pnpm add -g @intentsolutionsio/ccpi    # Install the CLI
@@ -801,21 +801,21 @@ Generates idempotent Ansible playbooks following infrastructure-as-code best pra
 
 | Metric                | Count |
 | --------------------- | ----- |
-| Total skills          | 2,810 |
-| Plugins (marketplace) | 425   |
-| Agents                | 200   |
-| Plugin categories     | 18    |
+| Total skills          | 3,008 |
+| Plugins (marketplace) | 448   |
+| Agents                | 311   |
+| Plugin categories     | 19    |
 | Contributors          | 16    |
 
 ---
 
 ## Plugin Types
 
-### AI Instruction Plugins (309 plugins)
+### AI Instruction Plugins (331 plugins)
 
 Markdown files that guide Claude's behavior through structured instructions, skills, commands, and agents. No external code — everything runs through Claude's built-in capabilities.
 
-### MCP Server Plugins (10 plugins)
+### MCP Server Plugins (11 plugins)
 
 TypeScript applications that run as separate Node.js processes. Claude communicates with them through the Model Context Protocol.
 
@@ -1022,4 +1022,4 @@ MIT License — See [LICENSE](LICENSE) for details.
 
 ---
 
-**Version**: 4.33.0 | **Last Updated**: 2026-05-25 | **Skills**: 2,754 | **Plugins**: 431
+**Version**: 4.33.0 | **Last Updated**: 2026-05-25 | **Skills**: 3,008 | **Plugins**: 448
