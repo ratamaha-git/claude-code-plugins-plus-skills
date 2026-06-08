@@ -1,5 +1,3 @@
-<!-- markdownlint-disable MD028 -->
-
 # Kobiton MCP Tools — Examples
 
 A guide to every tool available in the Kobiton MCP server, organized by domain. Each tool includes a description and natural-language prompt examples you can use directly in Claude Code.
@@ -173,9 +171,7 @@ Confirm a previously uploaded app so it appears in the Kobiton portal's app repo
 
 ---
 
-## 4. Running Automation Tests
-
-### `run-automation-suite` skill
+## 4. Running `run-automation-suite` skill
 
 Guided workflow that uploads your app, selects a device, parses capabilities from your local Appium script, and executes it. Supports Node.js, Python, .NET, and Java scripts.
 
@@ -192,3 +188,16 @@ Test this app <PATH_TO_APP> by my script <PATH_TO_SCRIPT> on Kobiton <PLATFORM> 
 > "Test this app resources/apps/LeaderboardApp.ipa by my script tests/ios_test.py on Kobiton iOS device iPhone 15"
 
 > "Test this app resources/apps/TurboTest.apk by my script tests/smoke_test.js on Kobiton Android device Pixel 6"
+
+---
+
+## 5. Running `run-interactive-test` skill
+
+Guided workflow for interactive testing using natural language. WebDriver actions, device operations (adb shell, logs, screen), file management (push/pull), and more.
+
+**Prompt examples:**
+
+> "Open a session on the Pixel 6 and install this app"
+
+> "Fill the form with `Tester` name, choose the other option in picker, then press a submit button. Remember to capture screenshot and page source for each steps"
+

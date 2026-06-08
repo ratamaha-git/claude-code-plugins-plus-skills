@@ -36,13 +36,11 @@ Most companies fight for market share in existing industries (red oceans). Winne
 **Examples:**
 
 **Red Ocean:**
-
 - Airlines competing on routes, amenities, price
 - Smartphone makers adding features competitors have
 - Restaurants in same category fighting for customers
 
 **Blue Ocean:**
-
 - Cirque du Soleil: Not circus vs. circus, but new form of entertainment
 - Netflix: Not video rental, but streaming entertainment
 - Nintendo Wii: Not graphics power, but accessible motion gaming
@@ -68,7 +66,6 @@ Value Innovation = Utility × Price × Cost
 | Better performance on established factors | New factors, eliminate old factors |
 
 **How it works:**
-
 - **Eliminate** factors the industry takes for granted → Reduces costs
 - **Reduce** factors below industry standard → Reduces costs
 - **Raise** factors above industry standard → Increases value
@@ -77,7 +74,6 @@ Value Innovation = Utility × Price × Cost
 **Result:** Lower cost structure AND superior value proposition.
 
 **Example: Cirque du Soleil**
-
 - **Eliminated:** Animal shows, star performers, multiple show arenas (reduced costs)
 - **Reduced:** Fun and humor, thrill and danger (less important for target audience)
 - **Raised:** Unique venue, artistic music and dance (differentiation)
@@ -97,7 +93,6 @@ See: [references/value-innovation.md](references/value-innovation.md) for value 
 List all the factors the industry competes on.
 
 **Example: Wine industry**
-
 - Price
 - Prestige/awards
 - Aging quality
@@ -116,7 +111,6 @@ Plot how you and competitors score on each factor (low to high).
 ### Step 3: Analyze
 
 **Questions:**
-
 - Which factors does the industry compete on but buyers don't care about?
 - Which factors could be eliminated or reduced?
 - Which factors could be raised or created?
@@ -167,13 +161,11 @@ REDUCE                         CREATE
 **Question:** What can we eliminate that the industry competes on but adds no value for customers?
 
 **Examples:**
-
 - **Cirque du Soleil:** Animals, star performers
 - **Southwest Airlines:** Meals, seat assignments, hub transfers
 - **IKEA:** Sales staff, assembly service, delivery
 
 **Benefits:**
-
 - Reduces cost structure
 - Simplifies operations
 - Often removes friction customers don't want anyway
@@ -185,13 +177,11 @@ REDUCE                         CREATE
 **Question:** What can we offer well below industry standard?
 
 **Examples:**
-
 - **Yellow Tail:** Aging quality, prestige, complexity
 - **Jet Blue:** Route flexibility (focused on key routes)
 - **Salesforce:** Customization (v1.0 was simple)
 
 **Benefits:**
-
 - Lowers costs
 - Removes over-served aspects
 - Focuses resources on high-value factors
@@ -201,13 +191,11 @@ REDUCE                         CREATE
 **Question:** What should we raise well above industry standard?
 
 **Examples:**
-
 - **Cirque du Soleil:** Artistic value, unique venues
 - **Dyson:** Suction power, design
 - **Apple:** User experience, design aesthetics
 
 **Benefits:**
-
 - Creates differentiation
 - Justifies premium pricing (if aligned with customer value)
 - Hard for competitors to match
@@ -217,13 +205,11 @@ REDUCE                         CREATE
 **Question:** What new factors should we create that the industry has never offered?
 
 **Examples:**
-
 - **Cirque du Soleil:** Theatrical themes, refined environment
 - **Netflix:** Unlimited streaming, no late fees, recommendation algorithm
 - **Uber:** Real-time tracking, cashless payment, driver ratings
 
 **Benefits:**
-
 - Opens new value sources
 - Attracts non-customers
 - Creates competitive moat
@@ -252,7 +238,6 @@ See: [references/errc-grid.md](references/errc-grid.md) for ERRC templates and e
 **Question:** What are the alternative industries to yours?
 
 **Example:**
-
 - Movie theaters compete with restaurants, bars, concerts (entertainment alternatives)
 - NetJets (fractional jet ownership): Alternative to commercial airlines AND owning private jets
 
@@ -265,7 +250,6 @@ See: [references/errc-grid.md](references/errc-grid.md) for ERRC templates and e
 **Question:** What are the strategic groups, and can you create a new one?
 
 **Example:**
-
 - Car industry: luxury vs. economy
 - Lexus: Created "luxury at accessible price" group
 
@@ -280,7 +264,6 @@ See: [references/errc-grid.md](references/errc-grid.md) for ERRC templates and e
 **Chain:** Purchasers → Users → Influencers
 
 **Example:**
-
 - Novo Nordisk insulin pens: Targeted doctors (influencers) not patients (users)
 - Bloomberg terminals: Targeted traders (users) not IT departments (purchasers)
 
@@ -293,7 +276,6 @@ See: [references/errc-grid.md](references/errc-grid.md) for ERRC templates and e
 **Question:** What happens before, during, and after using your product?
 
 **Example:**
-
 - Babysitting is complementary to movie theaters → AMC: "Date night" package
 - Installation/training complements software → Salesforce: Built-in onboarding
 
@@ -306,7 +288,6 @@ See: [references/errc-grid.md](references/errc-grid.md) for ERRC templates and e
 **Question:** Can we add emotional appeal to functional industries (or vice versa)?
 
 **Examples:**
-
 - **Add emotion to functional:** Swatch (watches as fashion, not just time-telling)
 - **Add function to emotional:** The Body Shop (cosmetics with ethical sourcing story)
 
@@ -319,7 +300,6 @@ See: [references/errc-grid.md](references/errc-grid.md) for ERRC templates and e
 **Question:** What trends are shaping your industry, and how can you act on them now?
 
 **Example:**
-
 - Apple iPod/iTunes: Anticipated digital music trend before others
 - Tesla: Bet on electric vehicles before mainstream adoption
 
@@ -332,7 +312,6 @@ See: [references/six-paths.md](references/six-paths.md) for detailed path exerci
 **Blue oceans are created by converting non-customers, not stealing competitors' customers.**
 
 ### Tier 1: "Soon-to-be" Non-Customers
-
 - On the edge of your market
 - Minimally using offerings
 - Ready to jump ship
@@ -342,7 +321,6 @@ See: [references/six-paths.md](references/six-paths.md) for detailed path exerci
 **Example:** Pret A Manger won busy professionals who were "soon-to-be" non-customers of fast food (wanted healthy, fast)
 
 ### Tier 2: "Refusing" Non-Customers
-
 - Considered your industry but consciously rejected it
 - See offerings as unacceptable or beyond their means
 
@@ -351,7 +329,6 @@ See: [references/six-paths.md](references/six-paths.md) for detailed path exerci
 **Example:** JCDecaux bus-shelter advertising—cities refused outdoor ads until JCDecaux offered free bus shelters in exchange
 
 ### Tier 3: "Unexplored" Non-Customers
-
 - In markets distant from yours
 - Never considered your offerings as an option
 
@@ -360,7 +337,6 @@ See: [references/six-paths.md](references/six-paths.md) for detailed path exerci
 **Example:** Callaway Big Bertha golf clubs—expanded market to beginners and occasional golfers (unexplored)
 
 **Process:**
-
 1. Map all three tiers
 2. Find commonalities across tiers
 3. Identify what would unlock massive demand
@@ -383,7 +359,6 @@ See: [references/non-customers.md](references/non-customers.md) for non-customer
 **Test:** Does your offering unlock a leap in buyer utility for each of the six utilities?
 
 **Six utility levers:**
-
 - Customer productivity
 - Simplicity
 - Convenience
@@ -402,7 +377,6 @@ See: [references/non-customers.md](references/non-customers.md) for non-customer
 **Approach:** Price against alternatives (not costs or competitors in same industry)
 
 **Steps:**
-
 1. Identify alternatives (different forms, not just direct competitors)
 2. Map price/performance of alternatives
 3. Price within reach of mass buyers
@@ -416,7 +390,6 @@ See: [references/non-customers.md](references/non-customers.md) for non-customer
 **Formula:** `Strategic Price - Target Profit Margin = Target Cost`
 
 **Approach:**
-
 - Work backward from price
 - Use ERRC to eliminate/reduce costs
 - Partner to achieve cost target
@@ -429,14 +402,12 @@ See: [references/non-customers.md](references/non-customers.md) for non-customer
 **Question:** What are the adoption hurdles?
 
 **Common hurdles:**
-
 - Employees resist change
 - Partners resist change
 - General public resists
 - Regulatory/legal barriers
 
 **Solutions:**
-
 - Educate stakeholders on benefits
 - Build pilot programs
 - Engage partners early

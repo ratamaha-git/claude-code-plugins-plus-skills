@@ -44,7 +44,6 @@ Innovators → Early Adopters → [CHASM] → Early Majority → Late Majority �
 **Critical insight:** Early adopters and early majority look similar but want completely opposite things.
 
 **Early Adopters (Visionaries):**
-
 - Want to be first
 - Willing to work around bugs
 - Buy the future vision
@@ -53,7 +52,6 @@ Innovators → Early Adopters → [CHASM] → Early Majority → Late Majority �
 - High risk tolerance
 
 **Early Majority (Pragmatists):**
-
 - Want proven solutions
 - Need it to "just work"
 - Buy present value
@@ -68,19 +66,16 @@ See: [references/buyer-segments.md](references/buyer-segments.md) for detailed b
 ## Why the Chasm Exists
 
 **The reference gap:**
-
 - Early majority won't buy without references from other early majority companies
 - But no early majority companies exist until someone crosses first
 - Classic catch-22
 
 **The whole product gap:**
-
 - Early adopters tolerate incomplete products
 - Early majority demands complete, integrated solutions
 - Your MVP that wowed visionaries is unshippable to pragmatists
 
 **The positioning gap:**
-
 - "Revolutionary" excites early adopters, terrifies early majority
 - "Disruptive" = risky, expensive, unproven
 - Pragmatists want evolution, not revolution
@@ -96,7 +91,6 @@ See: [references/buyer-segments.md](references/buyer-segments.md) for detailed b
 **Choose a single, narrowly defined market segment.**
 
 **Beachhead characteristics:**
-
 - **Specific:** Not "healthcare" but "orthopedic surgical centers with 5-10 surgeons"
 - **Urgent pain:** Problem is costing them real money/time
 - **Accessible:** You can reach them (conferences, publications, channels)
@@ -115,12 +109,10 @@ See: [references/buyer-segments.md](references/buyer-segments.md) for detailed b
 | **Word-of-mouth** | They talk to each other | Siloed, isolated |
 
 **Example:** Salesforce
-
 - **Bad:** "CRM for all businesses"
 - **Good:** "Sales force automation for inside sales teams at B2B SaaS startups"
 
 **Process:**
-
 1. Brainstorm 20+ possible segments
 2. Score each on criteria above
 3. Choose ONE (resist temptation to keep options open)
@@ -156,7 +148,6 @@ Potential Product (what it could become)
 **Critical:** Early majority buys the augmented product. If you only deliver generic product, they won't buy.
 
 **Whole product checklist:**
-
 - [ ] Core technology (your product)
 - [ ] Complementary products/services (integrations, partner solutions)
 - [ ] Installation and setup (onboarding, migration)
@@ -166,7 +157,6 @@ Potential Product (what it could become)
 - [ ] Risk mitigation (security, compliance, SLAs)
 
 **Partnerships:**
-
 - Identify gaps between generic and augmented product
 - Partner with companies that fill gaps
 - Joint go-to-market for beachhead segment
@@ -178,7 +168,6 @@ See: [references/whole-product.md](references/whole-product.md) for whole produc
 **Position against the competition.**
 
 **Positioning formula:**
-
 - For [target customer]
 - Who [statement of need/opportunity]
 - Our product is a [product category]
@@ -187,7 +176,6 @@ See: [references/whole-product.md](references/whole-product.md) for whole produc
 - Our product [statement of primary differentiation]
 
 **Example: Workday (early positioning)**
-
 - For mid-market companies
 - Who need modern HR and finance systems
 - Workday is a cloud-based ERP
@@ -198,18 +186,15 @@ See: [references/whole-product.md](references/whole-product.md) for whole produc
 **Competitive positioning:**
 
 **Identify the market alternative:**
-
 - What do customers use today?
 - Often it's NOT a direct competitor—it's manual processes, spreadsheets, or old systems
 
 **Frame the competition:**
-
 - Don't pick fights you can't win
 - Differentiate on dimension you dominate
 - Make their strength irrelevant
 
 **Example:** Salesforce vs. Siebel
-
 - **Siebel strength:** Feature-rich, enterprise-grade
 - **Salesforce positioning:** "No software" (cloud-based, fast setup)
 - **Result:** Made Siebel's strength (complexity) a weakness
@@ -229,7 +214,6 @@ See: [references/positioning.md](references/positioning.md) for competitive posi
 | **Late majority** | Commodity, low-touch | Self-service, inside sales |
 
 **For crossing the chasm (early majority):**
-
 - **Lead with references:** Case studies, testimonials, peer recommendations
 - **Whole product messaging:** Emphasize completeness, ease, low risk
 - **Positioning:** Evolutionary, not revolutionary ("Better X" not "New category")
@@ -257,13 +241,11 @@ Beachhead → Adjacent #1 → Adjacent #2 → Adjacent #3
 ```
 
 **Adjacency criteria:**
-
 - Similar needs (so whole product transfers)
 - Reference credibility (beachhead customers influence adjacent segment)
 - Incremental effort (don't start from scratch)
 
 **Example: Salesforce expansion**
-
 - Beachhead: Inside sales teams at tech startups
 - Pin 2: Inside sales at all B2B companies
 - Pin 3: All sales teams (field sales too)
@@ -280,19 +262,16 @@ See: [references/expansion.md](references/expansion.md) for segment expansion st
 **Once you cross the chasm, demand accelerates (the "tornado").**
 
 **Tornado characteristics:**
-
 - Rapid mainstream adoption
 - Shift from solution selling to product selling
 - Commodity dynamics emerge
 - Market leaders consolidate
 
 **Strategic shift in tornado:**
-
 - **Before chasm:** Whole product, customization, high-touch
 - **During tornado:** Standardization, scalability, distribution
 
 **Gorilla/chimp/monkey dynamics:**
-
 - **Gorilla:** Market leader (80%+ market share)
 - **Chimps:** Strong #2 and #3 (niche players)
 - **Monkeys:** Everyone else (struggling)
@@ -324,7 +303,6 @@ Audit any tech product go-to-market:
 ## Chasm-Crossing Checklist
 
 **Before declaring victory:**
-
 - [ ] Single, narrowly defined beachhead segment chosen
 - [ ] Segment has urgent, expensive problem
 - [ ] We can assemble whole product for segment
@@ -350,7 +328,7 @@ Audit any tech product go-to-market:
 This skill is based on Geoffrey Moore's Crossing the Chasm framework. For the complete methodology:
 
 - [*"Crossing the Chasm"*](https://www.amazon.com/Crossing-Chasm-3rd-Disruptive-Mainstream/dp/0062292986?tag=wondelai00-20) by Geoffrey A. Moore (3rd Edition)
-- *"Inside the Tornado"* by Geoffrey A. Moore (sequel: managing hypergrowth)
+- [*"Inside the Tornado"*](https://www.amazon.com/Inside-Tornado-Strategies-Developing-Hypergrowth/dp/0887307760?tag=wondelai00-20) by Geoffrey A. Moore (sequel: managing hypergrowth)
 
 ## About the Author
 

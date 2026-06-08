@@ -34,7 +34,6 @@ A systematic approach to building a scalable, predictable B2B sales machine. Pio
 **Key insight:** Most companies over-invest in nets (marketing) and under-invest in spears (outbound). Seeds are the best but can't be manufactured quickly. A balanced mix of all three creates predictable revenue.
 
 **Revenue mix:**
-
 - **Seeds:** Invest in customer success, NPS, referral programs
 - **Nets:** Invest in content, SEO, paid acquisition
 - **Spears:** Invest in SDR team, Cold Calling 2.0
@@ -46,7 +45,6 @@ See: [references/lead-types.md](references/lead-types.md) for lead source strate
 **The #1 principle: Separate prospecting from closing.**
 
 **Traditional (broken) model:**
-
 - AEs prospect AND close
 - Result: AEs hate prospecting, pipeline is feast-or-famine
 
@@ -64,7 +62,6 @@ See: [references/lead-types.md](references/lead-types.md) for lead source strate
 **Mission:** Generate qualified pipeline through outbound prospecting.
 
 **Focus:**
-
 - Research target accounts
 - Write personalized Cold Calling 2.0 emails
 - Get referred to the right person
@@ -72,13 +69,11 @@ See: [references/lead-types.md](references/lead-types.md) for lead source strate
 - Pass qualified opportunities to AEs
 
 **Not their job:**
-
 - Close deals
 - Handle inbound leads
 - Manage existing customers
 
 **Metrics:**
-
 - Qualified opportunities generated per month
 - Response rate to outbound emails
 - Meetings booked per week
@@ -91,20 +86,17 @@ See: [references/lead-types.md](references/lead-types.md) for lead source strate
 **Mission:** Close deals from qualified pipeline.
 
 **Focus:**
-
 - Run discovery calls
 - Demo and present solutions
 - Negotiate and close
 - Hand off to CSM
 
 **Not their job:**
-
 - Prospect for new leads (this is SDR's job)
 - Qualify inbound leads (this is MDR's job)
 - Manage post-sale relationships (CSM's job)
 
 **Metrics:**
-
 - Revenue closed
 - Win rate
 - Average deal size
@@ -115,21 +107,18 @@ See: [references/lead-types.md](references/lead-types.md) for lead source strate
 **Mission:** Retain customers and grow accounts.
 
 **Focus:**
-
 - Onboard new customers
 - Drive adoption and engagement
 - Identify expansion opportunities
 - Prevent churn
 
 **Metrics:**
-
 - Net revenue retention
 - Churn rate
 - Expansion revenue
 - NPS / CSAT
 
 **The virtuous cycle:**
-
 ```
 SDR generates pipeline → AE closes → CSM retains/grows → Happy customer refers (Seeds)
 ```
@@ -141,7 +130,6 @@ See: [references/roles.md](references/roles.md) for role definitions, career pat
 **The outbound prospecting methodology that replaces traditional cold calling.**
 
 **Why traditional cold calling fails:**
-
 - Gatekeepers block calls
 - Decision makers don't answer phones
 - 1-3% connection rate
@@ -157,7 +145,6 @@ See: [references/roles.md](references/roles.md) for role definitions, career pat
 ### Step 1: Build Target Account List
 
 **Ideal Customer Profile (ICP):**
-
 - Company size (employees, revenue)
 - Industry
 - Technology stack
@@ -165,7 +152,6 @@ See: [references/roles.md](references/roles.md) for role definitions, career pat
 - Pain points
 
 **Build list using:**
-
 - LinkedIn Sales Navigator
 - ZoomInfo / Apollo / Clearbit
 - Company websites
@@ -178,7 +164,6 @@ See: [references/roles.md](references/roles.md) for role definitions, career pat
 **The core innovation:** Don't email the decision maker directly. Email above them and ask for a referral down.
 
 **Why it works:**
-
 - Senior people are helpful (they forward emails)
 - Referrals have 3-5x higher response rate
 - Creates warm introduction from within the company
@@ -200,7 +185,6 @@ See: [references/roles.md](references/roles.md) for role definitions, career pat
 > [Your name]
 
 **Key elements:**
-
 - Short (< 100 words)
 - No pitch, no attachments, no links
 - Asks for referral, not a meeting
@@ -244,7 +228,6 @@ See: [references/roles.md](references/roles.md) for role definitions, career pat
 | **M**oney | Can they afford it? | Budget exists, within range | No budget, too expensive |
 
 **Qualification call structure:**
-
 1. Build rapport (2 min)
 2. Set agenda ("I want to understand your situation and see if there's a fit")
 3. Discovery questions (10-15 min)
@@ -254,7 +237,6 @@ See: [references/roles.md](references/roles.md) for role definitions, career pat
 ### Step 5: Hand Off to AE
 
 **The handoff must include:**
-
 - Account background and ICP match
 - Contact details and role
 - Pain points discovered
@@ -278,7 +260,6 @@ Prospects Needed ÷ Response Rate = Emails Needed
 ```
 
 **Example:**
-
 - **Revenue goal:** $1M ARR
 - **Average deal:** $20K ARR
 - **Deals needed:** 50
@@ -306,7 +287,6 @@ See: [references/pipeline-math.md](references/pipeline-math.md) for revenue mode
 ### Hiring SDRs
 
 **Ideal SDR profile:**
-
 - Coachable (most important trait)
 - Curious and intelligent
 - Strong writing skills
@@ -315,14 +295,12 @@ See: [references/pipeline-math.md](references/pipeline-math.md) for revenue mode
 - Not necessarily experienced
 
 **Where to hire:**
-
 - Recent graduates
 - Career changers
 - Internal transfers
 - SDR-to-AE career path candidates
 
 **SDR career path:**
-
 ```
 SDR (6-18 months) → Senior SDR → AE or SDR Manager
 ```
@@ -345,7 +323,6 @@ SDR (6-18 months) → Senior SDR → AE or SDR Manager
 **Typical split:** 60/40 or 70/30 (base/variable)
 
 **Variable triggers:**
-
 - Per qualified opportunity generated
 - Bonus for opportunities that close
 - Bonus for hitting/exceeding quota
@@ -357,7 +334,6 @@ See: [references/team-building.md](references/team-building.md) for hiring, onbo
 **Key metrics to track:**
 
 ### Leading Indicators (Predictive)
-
 - Emails sent per SDR per day
 - Response rate
 - Meetings booked per week
@@ -365,7 +341,6 @@ See: [references/team-building.md](references/team-building.md) for hiring, onbo
 - Pipeline value generated
 
 ### Lagging Indicators (Results)
-
 - Revenue closed
 - Win rate
 - Average deal size
@@ -373,14 +348,12 @@ See: [references/team-building.md](references/team-building.md) for hiring, onbo
 - Customer acquisition cost (CAC)
 
 ### Efficiency Metrics
-
 - Cost per qualified opportunity
 - SDR:AE ratio (typically 2-3 SDRs per AE)
 - LTV:CAC ratio (target >3:1)
 - Payback period
 
 **Dashboard cadence:**
-
 - **Daily:** Activity metrics (emails, calls, responses)
 - **Weekly:** Pipeline metrics (opportunities, meetings)
 - **Monthly:** Revenue metrics (closed, win rate, cycle)
