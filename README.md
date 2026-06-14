@@ -71,33 +71,33 @@ ccpi update                     # Pull latest versions
 
 ### 📦 Live npm Downloads
 
-Across **425 published packages** in the
+Across **428 published packages** in the 
 [claude-code-plugins](https://www.npmjs.com/~jeremylongshore) namespace. Updated daily by GitHub Actions.
 
-| Window        | All packages | Established (>30d) |
-| ------------- | -----------: | -----------------: |
-| Last 24 hours |          195 |                183 |
-| Last 7 days   |        2,477 |              2,379 |
-| Last 30 days  |       14,130 |             11,983 |
+| Window | All packages | Established (>30d) |
+|--------|-------------:|-------------------:|
+| Last 24 hours | 1,359 | 1,349 |
+| Last 7 days | 65,848 | 65,481 |
+| Last 30 days | 76,045 | 75,492 |
 
 <sub>"Established" excludes packages first published within the last 30 days, so a bulk-publish event doesn't dominate the headline.</sub>
 
 **Top 10 by last 30 days:**
 
-| #   | Package                                                                                                                  | Last 30d |
-| --- | ------------------------------------------------------------------------------------------------------------------------ | -------: |
-| 1   | [`@intentsolutionsio/ccpi`](https://www.npmjs.com/package/@intentsolutionsio/ccpi)                                       |      519 |
-| 2   | [`@intentsolutionsio/engineer-design-diagram`](https://www.npmjs.com/package/@intentsolutionsio/engineer-design-diagram) |      290 |
-| 3   | [`@intentsolutionsio/guidewire-pack`](https://www.npmjs.com/package/@intentsolutionsio/guidewire-pack)                   |      263 |
-| 4   | [`@intentsolutionsio/hubspot-pack`](https://www.npmjs.com/package/@intentsolutionsio/hubspot-pack)                       |      201 |
-| 5   | [`@intentsolutionsio/zero-tech-debt`](https://www.npmjs.com/package/@intentsolutionsio/zero-tech-debt)                   |      177 |
-| 6   | [`@intentsolutionsio/validate-plugin`](https://www.npmjs.com/package/@intentsolutionsio/validate-plugin)                 |      170 |
-| 7   | [`@intentsolutionsio/cli-ux-tester`](https://www.npmjs.com/package/@intentsolutionsio/cli-ux-tester)                     |      164 |
-| 8   | [`@intentsolutionsio/tonone`](https://www.npmjs.com/package/@intentsolutionsio/tonone)                                   |      160 |
-| 9   | [`@intentsolutionsio/claude-workflow-skills`](https://www.npmjs.com/package/@intentsolutionsio/claude-workflow-skills)   |      159 |
-| 10  | [`@intentsolutionsio/contributing-clanker`](https://www.npmjs.com/package/@intentsolutionsio/contributing-clanker)       |      157 |
+| # | Package | Last 30d |
+|---|---------|---------:|
+| 1 | [`@intentsolutionsio/wallet-security-auditor`](https://www.npmjs.com/package/@intentsolutionsio/wallet-security-auditor) | 606 |
+| 2 | [`@intentsolutionsio/ccpi`](https://www.npmjs.com/package/@intentsolutionsio/ccpi) | 501 |
+| 3 | [`@intentsolutionsio/market-price-tracker`](https://www.npmjs.com/package/@intentsolutionsio/market-price-tracker) | 390 |
+| 4 | [`@intentsolutionsio/zero-tech-debt`](https://www.npmjs.com/package/@intentsolutionsio/zero-tech-debt) | 365 |
+| 5 | [`@intentsolutionsio/jeremy-plugin-tool`](https://www.npmjs.com/package/@intentsolutionsio/jeremy-plugin-tool) | 361 |
+| 6 | [`@intentsolutionsio/databricks-pack`](https://www.npmjs.com/package/@intentsolutionsio/databricks-pack) | 338 |
+| 7 | [`@intentsolutionsio/openrouter-pack`](https://www.npmjs.com/package/@intentsolutionsio/openrouter-pack) | 330 |
+| 8 | [`@intentsolutionsio/cursor-pack`](https://www.npmjs.com/package/@intentsolutionsio/cursor-pack) | 314 |
+| 9 | [`@intentsolutionsio/langfuse-pack`](https://www.npmjs.com/package/@intentsolutionsio/langfuse-pack) | 258 |
+| 10 | [`@intentsolutionsio/engineer-design-diagram`](https://www.npmjs.com/package/@intentsolutionsio/engineer-design-diagram) | 254 |
 
-<sub>Last refreshed 2026-05-28T01:44:16.713Z.</sub>
+<sub>Last refreshed 2026-06-14T05:41:51.847Z.</sub>
 
 <!-- NPM-STATS:END -->
 
