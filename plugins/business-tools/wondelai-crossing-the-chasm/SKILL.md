@@ -1,25 +1,31 @@
 ---
 name: crossing-the-chasm
-description: 'Navigate the technology adoption lifecycle from early adopters to mainstream market. Use when the user mentions "crossing the chasm", "beachhead segment", "whole product", "early adopters vs. mainstream", "tech go-to-market", "bowling pin strategy", "technology adoption lifecycle", or "pragmatist buyers". Also trigger when a startup has early traction but struggles to grow beyond initial users, or when planning go-to-market for technical products. Covers D-Day analogy, bowling-pin strategy, and positioning against incumbents. For product positioning, see obviously-awesome. For new market creation, see blue-ocean-strategy.'
+description: 'Navigate the technology adoption lifecycle from early adopters to mainstream market. Use when the user mentions "crossing the chasm", "beachhead segment", "whole product", "early adopters vs mainstream", "tech go-to-market", "bowling pin strategy", "technology adoption lifecycle", "pragmatist buyers", "growth stalled after early adopters", or "our go-to-market plan". Also trigger when planning go-to-market for a technical product. Covers the D-Day analogy, bowling-pin strategy, the tornado, and positioning against incumbents. For product positioning, see obviously-awesome. For new market creation, see blue-ocean-strategy.'
 license: MIT
 metadata:
   author: wondelai
-  version: "1.1.0"
+  version: "1.4.0"
 ---
 
 # Crossing the Chasm Framework
 
-Strategic framework for marketing and selling disruptive technology products, particularly for transitioning from early adopters to mainstream customers.
+Strategic framework for marketing and selling disruptive technology products, particularly the transition from early adopters to mainstream customers.
 
 ## Core Principle
 
-**There is a chasm between early adopters and the mainstream market.** Most tech companies fail not because they can't build great products, but because they can't cross from visionaries who love new technology to pragmatists who just want solutions that work.
+**There is a chasm between early adopters and the mainstream market.** Most tech companies fail not because they can't build great products, but because they can't cross from visionaries who love new technology to pragmatists who just want solutions that work. The two groups want fundamentally different things -- what wins over innovators actively repels the early majority -- so you must change your strategy, and your whole product, to cross.
 
-**The foundation:** Early adopters and mainstream customers want fundamentally different things. What wins over innovators actively repels the early majority. You must change your strategy—and your whole product—to cross the chasm.
+If the product is modern PLG/freemium B2B SaaS, read [references/b2b-saas.md](references/b2b-saas.md) first -- it remaps every step below (the chasm, beachhead, whole product, metrics) for self-serve trials, free tiers, and the false-signal trap where 1,000 free users looks like a crossing but isn't.
 
 ## Scoring
 
-**Goal: 10/10.** When evaluating go-to-market strategy for tech products, rate 0-10 based on alignment with chasm-crossing principles. A 10/10 means proper beachhead selection, whole product strategy, and positioning for pragmatist buyers; lower scores indicate early-market tactics applied to mainstream market. Always provide current score and improvements needed to reach 10/10.
+**Goal: 10/10.** Score any tech go-to-market by the Quick Diagnostic at the end: count the rows answered "yes" and map the 7 rows onto a 0-10 scale (roughly 1.4 points per satisfied row).
+
+- **9-10:** single dominable beachhead chosen, 10+ in-segment references, whole product complete via partners, evolution-not-revolution positioning, pragmatist-aligned channel -- adoption is accelerating. You've crossed.
+- **5-6:** beachhead picked but whole product or references still thin, or positioning still reads "revolutionary." You're mid-chasm; ship the missing whole-product layers and case studies.
+- **<=3:** multiple beachheads (or none), visionary messaging, MVP-grade product. Classic early-market tactics aimed at the mainstream -- the most common reason to stall.
+
+Report the score, name the failing diagnostic rows, and give the fix for each.
 
 ## The Technology Adoption Life Cycle
 
@@ -28,7 +34,7 @@ Innovators → Early Adopters → [CHASM] → Early Majority → Late Majority �
    2.5%         13.5%                      34%             34%            16%
 ```
 
-**The Chasm:** The gap between early adopters (13.5%) and early majority (34%). This is where most tech products die.
+**The Chasm:** The gap between early adopters (13.5%) and early majority (34%) -- where most tech products die.
 
 ### The Five Buyer Groups
 
@@ -41,144 +47,80 @@ Innovators → Early Adopters → [CHASM] → Early Majority → Late Majority �
 | **Late Majority** | 34% | Conservatives | Avoid being left behind | Commodity, support, low risk |
 | **Laggards** | 16% | Skeptics | Only when forced | Cheap, simple, necessary |
 
-**Critical insight:** Early adopters and early majority look similar but want completely opposite things.
+**Critical insight:** Early adopters and early majority look similar but want opposite things:
 
-**Early Adopters (Visionaries):**
+| Early Adopters (Visionaries) | Early Majority (Pragmatists) |
+|------------------------------|------------------------------|
+| Want to be first | Want proven solutions |
+| Tolerate bugs and workarounds | Need it to "just work" |
+| Buy the future vision | Buy present value |
+| Need no references | Need references from peers |
+| Want custom solutions, high risk tolerance | Want standards, low risk tolerance |
 
-- Want to be first
-- Willing to work around bugs
-- Buy the future vision
-- Don't need references
-- Want custom solutions
-- High risk tolerance
+**Why this matters:** You can't market to both simultaneously -- visionary testimonials scare off pragmatists.
 
-**Early Majority (Pragmatists):**
+See: [references/buyer-segments.md](references/buyer-segments.md) when you need to identify which group a specific prospect belongs to, or to write segment-specific messaging -- it has full psychographics and buying triggers per group.
 
-- Want proven solutions
-- Need it to "just work"
-- Buy present value
-- Need references from peers
-- Want standards
-- Low risk tolerance
-
-**Why this matters:** You can't market to both simultaneously. Visionary testimonials scare off pragmatists. "Revolutionary" positioning is a red flag to the early majority.
-
-See: [references/buyer-segments.md](references/buyer-segments.md) for detailed buyer psychographics.
-
-## Why the Chasm Exists
-
-**The reference gap:**
-
-- Early majority won't buy without references from other early majority companies
-- But no early majority companies exist until someone crosses first
-- Classic catch-22
-
-**The whole product gap:**
-
-- Early adopters tolerate incomplete products
-- Early majority demands complete, integrated solutions
-- Your MVP that wowed visionaries is unshippable to pragmatists
-
-**The positioning gap:**
-
-- "Revolutionary" excites early adopters, terrifies early majority
-- "Disruptive" = risky, expensive, unproven
-- Pragmatists want evolution, not revolution
+**The reference catch-22:** Pragmatists won't buy without references from other pragmatists -- but none exist until someone crosses first. This is *why* the chasm is a chasm and not a slope: the social proof the early majority requires cannot accumulate gradually. Breaking it is the whole game (Steps 1-2 below).
 
 ## The D-Day Strategy: Crossing the Chasm
 
-**Bad approach:** Try to be everything to everyone (stall in chasm)
-
-**Good approach:** Target a single beachhead, dominate it, expand from position of strength.
+**Bad approach:** Try to be everything to everyone (stall in the chasm). **Good approach:** Target a single beachhead, dominate it, expand from a position of strength.
 
 ### Step 1: Target the Point of Attack
 
 **Choose a single, narrowly defined market segment.**
 
-**Beachhead characteristics:**
-
-- **Specific:** Not "healthcare" but "orthopedic surgical centers with 5-10 surgeons"
-- **Urgent pain:** Problem is costing them real money/time
-- **Accessible:** You can reach them (conferences, publications, channels)
-- **Compelling reason to buy:** Your solution is 10x better for their specific problem
-- **Whole product potential:** You can assemble partners to deliver complete solution
-- **Reference potential:** They'll be vocal advocates
-
-**Target segment criteria:**
+**Beachhead characteristics:** specific ("orthopedic surgical centers with 5-10 surgeons", not "healthcare"); urgent, expensive pain; accessible via known channels; a compelling reason to buy (you're 10x better for their problem); whole-product potential via partners; vocal reference potential.
 
 | Criteria | Good Beachhead | Bad Beachhead |
 |----------|----------------|---------------|
-| **Size** | Big enough to matter, small enough to dominate | Too small (can't build on) or too big (can't own) |
+| **Size** | Big enough to matter, small enough to dominate | Too small to build on, or too big to own |
 | **Pain** | Urgent, expensive problem | Nice-to-have |
 | **Access** | Clear channels to reach | Scattered, hard to reach |
 | **Competition** | Weak or non-existent | Entrenched incumbents |
 | **Word-of-mouth** | They talk to each other | Siloed, isolated |
 
-**Example:** Salesforce
+**Example (Salesforce):** not "CRM for all businesses" but "sales force automation for inside sales teams at B2B SaaS startups."
 
-- **Bad:** "CRM for all businesses"
-- **Good:** "Sales force automation for inside sales teams at B2B SaaS startups"
+**Process:** Brainstorm 20+ segments, score each against the criteria, choose ONE (resist keeping options open), commit to dominating it.
 
-**Process:**
-
-1. Brainstorm 20+ possible segments
-2. Score each on criteria above
-3. Choose ONE (resist temptation to keep options open)
-4. Commit to dominating it
-
-See: [references/beachhead-selection.md](references/beachhead-selection.md) for segment evaluation frameworks.
+See: [references/beachhead-selection.md](references/beachhead-selection.md) when running the brainstorm-and-score step above -- it has the scoring matrix, weighting, and the target-customer characterization worksheet to pick the one segment.
 
 ### Step 2: Assemble the Invasion Force
 
 **Create the "whole product" for your beachhead segment.**
 
-**Whole product layers:**
+Whole product layers: Generic (what you ship) → Expected (minimum viable) → Augmented (what pragmatists actually need) → Potential (what it could become).
 
-```
-Generic Product (what you ship)
-    ↓
-Expected Product (minimum to be viable)
-    ↓
-Augmented Product (what pragmatists actually need)
-    ↓
-Potential Product (what it could become)
-```
-
-**Example: Marketing automation software**
+**Example: marketing automation software**
 
 | Layer | What It Includes |
 |-------|------------------|
 | **Generic** | Email sending, list management |
 | **Expected** | Templates, analytics, API |
-| **Augmented** | CRM integration, training, support, professional services, best practices playbooks |
-| **Potential** | AI optimization, advanced personalization, account-based marketing |
+| **Augmented** | CRM integration, training, support, services, best-practice playbooks |
+| **Potential** | AI optimization, personalization, account-based marketing |
 
-**Critical:** Early majority buys the augmented product. If you only deliver generic product, they won't buy.
+**Critical:** The early majority buys the augmented product; ship only the generic and they won't buy.
 
 **Whole product checklist:**
-
 - [ ] Core technology (your product)
 - [ ] Complementary products/services (integrations, partner solutions)
 - [ ] Installation and setup (onboarding, migration)
-- [ ] Training and support
-- [ ] Documentation and best practices
+- [ ] Training, support, documentation, best practices
 - [ ] Industry-specific adaptations
 - [ ] Risk mitigation (security, compliance, SLAs)
 
-**Partnerships:**
+**Partnerships:** Identify gaps between generic and augmented, partner with companies that fill them, go to market jointly for the beachhead.
 
-- Identify gaps between generic and augmented product
-- Partner with companies that fill gaps
-- Joint go-to-market for beachhead segment
-
-See: [references/whole-product.md](references/whole-product.md) for whole product planning.
+See: [references/whole-product.md](references/whole-product.md) when mapping your gaps -- it extends the layers above with a 12-row gap-analysis matrix, the 80% rule, support-tier SLAs, and a planning canvas.
 
 ### Step 3: Define the Battle
 
 **Position against the competition.**
 
 **Positioning formula:**
-
 - For [target customer]
 - Who [statement of need/opportunity]
 - Our product is a [product category]
@@ -186,41 +128,15 @@ See: [references/whole-product.md](references/whole-product.md) for whole produc
 - Unlike [primary competitive alternative]
 - Our product [statement of primary differentiation]
 
-**Example: Workday (early positioning)**
+**Example (early Workday):** For mid-market companies who need modern HR and finance systems, Workday is a cloud-based ERP that delivers consumer-grade UX and fast implementation. Unlike Oracle and SAP, it requires no IT infrastructure and deploys in months, not years.
 
-- For mid-market companies
-- Who need modern HR and finance systems
-- Workday is a cloud-based ERP
-- That provides consumer-grade UX and fast implementation
-- Unlike Oracle and SAP
-- Workday requires no IT infrastructure and deploys in months, not years
+**Competitive positioning:** The market alternative is often NOT a direct competitor -- it's manual processes, spreadsheets, or legacy systems. Differentiate on a dimension you dominate and make the incumbent's strength irrelevant: Salesforce's "No software" positioning turned feature-rich Siebel's complexity into a weakness.
 
-**Competitive positioning:**
-
-**Identify the market alternative:**
-
-- What do customers use today?
-- Often it's NOT a direct competitor—it's manual processes, spreadsheets, or old systems
-
-**Frame the competition:**
-
-- Don't pick fights you can't win
-- Differentiate on dimension you dominate
-- Make their strength irrelevant
-
-**Example:** Salesforce vs. Siebel
-
-- **Siebel strength:** Feature-rich, enterprise-grade
-- **Salesforce positioning:** "No software" (cloud-based, fast setup)
-- **Result:** Made Siebel's strength (complexity) a weakness
-
-See: [references/positioning.md](references/positioning.md) for competitive positioning frameworks.
+See: [references/positioning.md](references/positioning.md) when filling in the formula above or choosing the competitive alternative to displace -- it has the claim-and-evidence structure and the "make the incumbent's strength irrelevant" patterns.
 
 ### Step 4: Launch the Invasion
 
 **Execute the go-to-market strategy.**
-
-**Distribution strategy:**
 
 | Customer Type | How They Buy | Sales Strategy |
 |---------------|--------------|----------------|
@@ -228,13 +144,7 @@ See: [references/positioning.md](references/positioning.md) for competitive posi
 | **Early majority** | Risk-averse, need proof | Channel partners, references, content marketing |
 | **Late majority** | Commodity, low-touch | Self-service, inside sales |
 
-**For crossing the chasm (early majority):**
-
-- **Lead with references:** Case studies, testimonials, peer recommendations
-- **Whole product messaging:** Emphasize completeness, ease, low risk
-- **Positioning:** Evolutionary, not revolutionary ("Better X" not "New category")
-- **Proof:** ROI calculators, free trials, pilot programs
-- **Channels:** Where pragmatists go for advice (analysts, integrators, consultants)
+**For crossing (early majority):** lead with references and case studies; message whole-product completeness, ease, and low risk; position as evolution ("Better X", not "new category"); prove with ROI calculators, free trials, pilots; sell through channels pragmatists trust (analysts, integrators, consultants).
 
 **Messaging shift:**
 
@@ -245,59 +155,27 @@ See: [references/positioning.md](references/positioning.md) for competitive posi
 | "Change everything" | "Improve [specific metric] by X%" |
 | "Visionary" | "Pragmatic" |
 
-See: [references/go-to-market.md](references/go-to-market.md) for launch strategies.
+See: [references/go-to-market.md](references/go-to-market.md) when building the launch plan -- it details channel selection by buyer type, the reference-and-case-study engine, and pricing/pilot tactics for pragmatists.
 
 ## Bowling Pin Strategy
 
-**After dominating beachhead, expand to adjacent segments.**
+**After dominating the beachhead, expand to adjacent segments** -- each pin knocks down the next: Beachhead → Adjacent #1 → Adjacent #2 → Adjacent #3.
 
-```
-Beachhead → Adjacent #1 → Adjacent #2 → Adjacent #3
-   [Pin]      [Pin]         [Pin]         [Pin]
-```
+**Adjacency criteria:** similar needs (whole product transfers), reference credibility (beachhead customers influence the adjacent segment), incremental effort (don't start from scratch).
 
-**Adjacency criteria:**
+**Example (Salesforce):** inside sales at tech startups → inside sales at all B2B companies → all sales teams → customer service → marketing → full CRM platform.
 
-- Similar needs (so whole product transfers)
-- Reference credibility (beachhead customers influence adjacent segment)
-- Incremental effort (don't start from scratch)
+**Anti-pattern:** Jumping to distant segments before dominating the beachhead.
 
-**Example: Salesforce expansion**
-
-- Beachhead: Inside sales teams at tech startups
-- Pin 2: Inside sales at all B2B companies
-- Pin 3: All sales teams (field sales too)
-- Pin 4: Customer service teams
-- Pin 5: Marketing teams
-- → Full CRM platform
-
-**Anti-pattern:** Jumping to distant segments before dominating beachhead.
-
-See: [references/expansion.md](references/expansion.md) for segment expansion strategies.
+See: [references/expansion.md](references/expansion.md) when sequencing your next 2-3 segments -- adjacency scoring and the bowling-pin ordering rules. For full worked arcs (Salesforce, VMware, Zoom, Atlassian) and stuck-in-the-chasm failures (Palm, Segway), see [references/case-studies.md](references/case-studies.md) when you need a pattern-match for your own situation.
 
 ## The Tornado: After the Chasm
 
-**Once you cross the chasm, demand accelerates (the "tornado").**
+**Once you cross, demand accelerates (the "tornado"):** rapid mainstream adoption, a shift from solution selling to product selling, commodity dynamics, and market-leader consolidation.
 
-**Tornado characteristics:**
+**Strategic shift:** before the chasm -- whole product, customization, high touch; during the tornado -- standardization, scalability, distribution.
 
-- Rapid mainstream adoption
-- Shift from solution selling to product selling
-- Commodity dynamics emerge
-- Market leaders consolidate
-
-**Strategic shift in tornado:**
-
-- **Before chasm:** Whole product, customization, high-touch
-- **During tornado:** Standardization, scalability, distribution
-
-**Gorilla/chimp/monkey dynamics:**
-
-- **Gorilla:** Market leader (80%+ market share)
-- **Chimps:** Strong #2 and #3 (niche players)
-- **Monkeys:** Everyone else (struggling)
-
-**Goal:** Become the gorilla in your beachhead, then expand.
+**Gorilla/chimp/monkey dynamics:** the gorilla (market leader, 80%+ share) takes most of the profit; chimps (strong #2-#3) survive in niches; monkeys struggle. Become the gorilla in your beachhead, then expand.
 
 ## Common Mistakes
 
@@ -311,47 +189,25 @@ See: [references/expansion.md](references/expansion.md) for segment expansion st
 
 ## Quick Diagnostic
 
-Audit any tech product go-to-market:
+Audit any tech go-to-market, and re-run it as the completion gate before declaring the chasm crossed. Each "If No" is a chasm symptom; act on the failing rows first.
 
 | Question | If No | Action |
 |----------|-------|--------|
-| Have we chosen a single beachhead segment? | You're in the chasm | Define narrow target market |
-| Do we have references from that segment? | Pragmatists won't buy | Build lighthouse customers |
-| Is the whole product complete? | Product won't meet needs | Identify gaps, build partnerships |
-| Does positioning emphasize proven value? | Wrong message for early majority | Reframe: evolution not revolution |
-| Can we dominate this segment? | Wrong beachhead | Choose narrower or different segment |
-
-## Chasm-Crossing Checklist
-
-**Before declaring victory:**
-
-- [ ] Single, narrowly defined beachhead segment chosen
-- [ ] Segment has urgent, expensive problem
-- [ ] We can assemble whole product for segment
-- [ ] 10+ reference customers from beachhead segment
-- [ ] Positioning emphasizes proven value, not revolution
-- [ ] Distribution channel aligned with pragmatist buying behavior
-- [ ] Partnerships in place to deliver whole product
-- [ ] Metrics show adoption accelerating (moving into tornado)
-
-## Reference Files
-
-- [buyer-segments.md](references/buyer-segments.md): Detailed psychographics for each buyer type
-- [beachhead-selection.md](references/beachhead-selection.md): Segment evaluation, scoring frameworks
-- [whole-product.md](references/whole-product.md): Whole product planning, gap analysis
-- [positioning.md](references/positioning.md): Competitive positioning frameworks and templates
-- [go-to-market.md](references/go-to-market.md): Distribution, messaging, launch strategies
-- [expansion.md](references/expansion.md): Bowling pin strategy, adjacency criteria
-- [case-studies.md](references/case-studies.md): Salesforce, Documentum, Ariba, and failures
-- [b2b-saas.md](references/b2b-saas.md): Chasm-crossing for modern SaaS companies
+| Have we chosen a single, narrowly defined beachhead with an urgent, expensive problem? | You're in the chasm | Define one narrow target market; resist multiple beachheads |
+| Can we plausibly dominate this segment? | Wrong beachhead | Choose a narrower or different segment |
+| Do we have 10+ reference customers from that exact segment? | Pragmatists won't buy | Build lighthouse customers and case studies |
+| Is the whole product complete -- partnerships in place to fill the gaps? | Product won't meet pragmatist needs | Identify generic-to-augmented gaps, partner to fill them |
+| Does positioning emphasize proven value over revolution? | Wrong message for the early majority | Reframe: evolution, not revolution |
+| Is the distribution channel aligned with pragmatist buying behavior? | You reach visionaries, not pragmatists | Sell through analysts, integrators, references, channel |
+| Are adoption metrics accelerating (entering the tornado)? | Still stuck before the chasm | Re-check the rows above -- something is still early-market |
 
 ## Further Reading
 
-This skill is based on Geoffrey Moore's Crossing the Chasm framework. For the complete methodology:
+For the complete methodology:
 
 - [*"Crossing the Chasm"*](https://www.amazon.com/Crossing-Chasm-3rd-Disruptive-Mainstream/dp/0062292986?tag=wondelai00-20) by Geoffrey A. Moore (3rd Edition)
-- *"Inside the Tornado"* by Geoffrey A. Moore (sequel: managing hypergrowth)
+- [*"Inside the Tornado"*](https://www.amazon.com/Inside-Tornado-Strategies-Developing-Hypergrowth/dp/0887307760?tag=wondelai00-20) by Geoffrey A. Moore (sequel: managing hypergrowth)
 
 ## About the Author
 
-**Geoffrey A. Moore** is a consultant, venture partner, and author focused on disruptive innovation and market development. His work at The Chasm Group and Chasm Institute has influenced go-to-market strategy for enterprise technology companies for over 30 years. *Crossing the Chasm* has sold over 1 million copies and is required reading at many business schools and tech companies. Moore serves on the boards of several technology companies and advises Fortune 500 firms on technology adoption.
+**Geoffrey A. Moore** is a consultant, venture partner, and author whose work at The Chasm Group and Chasm Institute has shaped go-to-market strategy for enterprise technology companies for over 30 years. *Crossing the Chasm* has sold over a million copies and is required reading at business schools and tech companies worldwide.
