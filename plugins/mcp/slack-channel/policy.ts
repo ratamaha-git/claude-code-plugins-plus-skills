@@ -14,12 +14,14 @@
  * Deliberately narrow surface: no compound combinators, no expression DSL.
  * Three effects only; more is a footgun for shadows.
  *
- * SPDX-License-Identifier: MIT
+ * SPDX-License-Identifier: Apache-2.0
  */
 
+import { createHash } from 'node:crypto'
 import { realpathSync } from 'node:fs'
 import { resolve, sep } from 'node:path'
 import { z } from 'zod'
+import { canonicalJson } from './journal.ts'
 
 // ---------------------------------------------------------------------------
 // MatchSpec — which tool calls a rule applies to.
@@ -35,16 +37,27 @@ import { z } from 'zod'
  *  - `channel`    — Slack channel ID, e.g. "C0123456789".
  *  - `thread_ts`  — Slack thread timestamp, e.g. "1712345678.001100".
  *                   Scopes a rule to a single thread within a channel.
- *                   Schema-only in v0.5.x: reserved for Epic 29-B's
- *                   evaluate() wiring so operators can ship thread-
- *                   scoped rules against a stable v1 schema without a
- *                   migration edit once enforcement lands.
+ *                   Enforced by evaluate() via matchApplies(): compared
+ *                   against `call.sessionKey.thread`. (Previously schema-
+ *                   only; wiring landed in Epic 29-B — before that a
+ *                   thread_ts-only rule silently matched every thread.)
  *  - `actor`      — who is calling the tool. Approvers arrive on a
  *                   later turn so they are not a valid `actor` here.
  *  - `argEquals`  — subset equality on validated MCP input args. Keys
  *                   are compared against the top-level input object;
  *                   every listed key must equal the listed value.
+ *  - `tier`       — provenance of the rule. Schema-only in this PR
+ *                   (ccsc-4g8): the field is parsed and stored, and
+ *                   `detectShadowing()` uses it for cross-tier
+ *                   intersection lint. `evaluate()` does NOT yet act
+ *                   on tier — that arrives in `ccsc-8pw` (combining
+ *                   algorithm: strictest-tier-wins, then first-
+ *                   applicable within tier). Default `'default'` keeps
+ *                   existing access.json files loading unchanged.
  */
+export const PolicyTier = z.enum(['default', 'workspace', 'user', 'admin'])
+export type PolicyTier = z.infer<typeof PolicyTier>
+
 export const MatchSpec = z
   .object({
     tool: z.string().min(1).optional(),
@@ -59,6 +72,7 @@ export const MatchSpec = z
       .optional(),
     actor: z.enum(['session_owner', 'claude_process']).optional(),
     argEquals: z.record(z.string(), z.unknown()).optional(),
+    tier: PolicyTier.optional(),
   })
   .refine(
     (m) =>
@@ -72,6 +86,12 @@ export const MatchSpec = z
   )
 
 export type MatchSpec = z.infer<typeof MatchSpec>
+
+/** Read the effective tier of a rule, defaulting to `'default'` when
+ *  unset. Wrapped so callers don't repeat the fallback. */
+export function effectiveTier(rule: PolicyRule): PolicyTier {
+  return rule.match.tier ?? 'default'
+}
 
 // ---------------------------------------------------------------------------
 // PolicyRule — discriminated union over the three effects.
@@ -207,6 +227,15 @@ export type PolicyDecision =
        *  approve before the decision flips to allow. Propagated from
        *  `RequireApprovalRule.approvers` (default 1). */
       approvers: number
+      /** Set ONLY on the input-unavailable fail-safe path (ccsc-x0t.5):
+       *  a `deny`/`require_approval` rule matched every enforceable field
+       *  but its `pathPrefix`/`argEquals` predicate could not be evaluated
+       *  at the gate, so the call is routed to a human. Honest-journaling
+       *  signal — the server writes it into the `policy.require` event so
+       *  the audit chain records WHY the human was asked, never claiming
+       *  the predicate was evaluated. Undefined on a genuine
+       *  `require_approval` match. */
+      reason?: string
     }
 
 // Compile-time shape-drift guard. `lib.ts` deliberately duplicates the
@@ -318,6 +347,20 @@ export interface ToolCall {
   input: Record<string, unknown>
   sessionKey: { channel: string; thread: string }
   actor: 'session_owner' | 'claude_process'
+  /** Whether `input` carries the structured tool args. Defaults to `true`.
+   *
+   *  The sole production caller — the MCP `permission_request` notification
+   *  handler — sets this `false`: that notification carries only an
+   *  `input_preview` string, never the structured args, so it builds the
+   *  call with `input: {}`. When `false`, `matchApplies` cannot evaluate the
+   *  `pathPrefix`/`argEquals` predicates and returns `'indeterminate'`
+   *  instead of the old fail-open `false`; `evaluate()` then fails a
+   *  `deny`/`require_approval` rule SAFE to `require` (routes to a human)
+   *  rather than letting a later broad `auto_approve` swallow the call.
+   *  See 000-docs/policy-evaluation-flow.md § Input-unavailable fail-safe
+   *  (ccsc-x0t.5). Defaulting to `true` keeps every existing call site and
+   *  test byte-for-byte unchanged. */
+  inputAvailable?: boolean
 }
 
 /** Key into the approvals map: `${ruleId}:${channel}:${thread}`. Scoped
@@ -363,6 +406,33 @@ export interface EvaluateOptions {
  *    - `deny` (rule = 'default') if `call.tool` is in requireAuthoredPolicy
  *    - `allow` (rule undefined) otherwise
  */
+/** Tier evaluation order, strictest first (ccsc-8pw). Admin wins over
+ *  User wins over Workspace wins over Default. When at least one rule
+ *  in a higher tier matches, that tier's decision is the result; lower
+ *  tiers are not consulted. */
+const TIER_PRIORITY: readonly PolicyTier[] = ['admin', 'user', 'workspace', 'default']
+
+// ---------------------------------------------------------------------------
+// Input-unavailable fail-safe constants (ccsc-x0t.5)
+// ---------------------------------------------------------------------------
+
+/** Reason stamped on a `require` decision produced by the input-unavailable
+ *  fail-safe. Exported so tests and the server assert against one string,
+ *  not a copy. The server writes this into the `policy.require` journal
+ *  event so the audit chain records WHY the human was asked. */
+export const INDETERMINATE_PREDICATE_REASON = 'predicate unevaluable at gate → routed to human'
+
+/** Approval-window TTL applied when a `deny` rule is fail-safed to `require`
+ *  (a `deny` has no `ttlMs` of its own). Mirrors the `require_approval`
+ *  schema default (5 min) so the hold clears promptly and doesn't linger. */
+export const FAILSAFE_APPROVAL_TTL_MS = 5 * 60 * 1000
+
+/** Quorum applied when a `deny` rule is fail-safed to `require` (a `deny`
+ *  has no `approvers` of its own). One operator can clear the hold —
+ *  matches the `require_approval` schema default and avoids a surprise
+ *  deadlock when no second approver is configured. */
+export const FAILSAFE_APPROVAL_QUORUM = 1
+
 export function evaluate(
   call: ToolCall,
   rules: readonly PolicyRule[],
@@ -372,15 +442,46 @@ export function evaluate(
   const approvals = opts.approvals ?? new Map<ApprovalKey, { ttlExpires: number }>()
   const requireAuthored = opts.requireAuthoredPolicy ?? DEFAULT_REQUIRE_AUTHORED_POLICY
 
-  for (const rule of rules) {
-    if (!matchApplies(rule.match, call)) continue
+  // Tier-aware combining algorithm (ccsc-8pw): strictest-tier-wins,
+  // then first-applicable within tier.
+  //
+  // Backward compatibility: when no rule declares a tier, every rule
+  // lives in the 'default' tier. The for-loop below walks admin → user
+  // → workspace → default; with no rules in admin/user/workspace, only
+  // default runs, and `default` walks every rule in the order the
+  // operator authored them — exactly the v0.5.x behavior. Existing
+  // tests and existing access.json files continue to behave identically.
+  //
+  // When tiers ARE used, every rule in a higher tier is considered before
+  // any rule in a lower tier. A `deny` in Admin always beats an
+  // `auto_approve` in Workspace AND an `auto_approve` in Admin always
+  // beats a `deny` in Workspace (the intentional "Admin overrides" path).
+  for (const tier of TIER_PRIORITY) {
+    for (const rule of rules) {
+      if (effectiveTier(rule) !== tier) continue
 
-    switch (rule.effect) {
-      case 'auto_approve':
-        return { kind: 'allow', rule: rule.id }
-      case 'deny':
-        return { kind: 'deny', rule: rule.id, reason: rule.reason }
-      case 'require_approval': {
+      const outcome = matchApplies(rule.match, call)
+      if (outcome === 'no_match') continue
+
+      if (outcome === 'indeterminate') {
+        // Input-unavailable fail-safe (ccsc-x0t.5). Every enforceable field
+        // (tool/channel/thread_ts/actor) matched, but an input-dependent
+        // predicate (pathPrefix/argEquals) could not be evaluated because the
+        // call carries no structured input (inputAvailable === false). NEVER
+        // fail-open here:
+        //   - auto_approve → skip (never auto-approve on an unconfirmable
+        //     predicate); fall through to later rules / the default branch,
+        //     exactly the pre-x0t.5 no-match net effect, now made explicit.
+        //   - deny / require_approval → route to a human (require), which
+        //     PREEMPTS any later broad auto_approve that would otherwise
+        //     swallow the call. This is the whole fix: an operator's
+        //     `{deny, pathPrefix:/etc}` no longer silently loses to a later
+        //     `{auto_approve, tool:Bash}`.
+        // See 000-docs/policy-evaluation-flow.md § Input-unavailable fail-safe.
+        if (rule.effect === 'auto_approve') continue
+        // Honor a fresh (rule, session) approval — an indeterminate
+        // require_approval then behaves identically to a matched one, and a
+        // human who already cleared an indeterminate deny isn't re-prompted.
         const approval = approvals.get(approvalKey(rule.id, call.sessionKey))
         if (approval && approval.ttlExpires > now) {
           return { kind: 'allow', rule: rule.id }
@@ -389,14 +490,38 @@ export function evaluate(
           kind: 'require',
           rule: rule.id,
           approver: 'human_approver',
-          ttlMs: rule.ttlMs,
-          approvers: rule.approvers,
+          // require_approval carries its own window; a deny has none, so
+          // fall back to the conservative fail-safe defaults.
+          ttlMs: rule.effect === 'require_approval' ? rule.ttlMs : FAILSAFE_APPROVAL_TTL_MS,
+          approvers: rule.effect === 'require_approval' ? rule.approvers : FAILSAFE_APPROVAL_QUORUM,
+          reason: INDETERMINATE_PREDICATE_REASON,
+        }
+      }
+
+      // outcome === 'match' — every field evaluated; original semantics.
+      switch (rule.effect) {
+        case 'auto_approve':
+          return { kind: 'allow', rule: rule.id }
+        case 'deny':
+          return { kind: 'deny', rule: rule.id, reason: rule.reason }
+        case 'require_approval': {
+          const approval = approvals.get(approvalKey(rule.id, call.sessionKey))
+          if (approval && approval.ttlExpires > now) {
+            return { kind: 'allow', rule: rule.id }
+          }
+          return {
+            kind: 'require',
+            rule: rule.id,
+            approver: 'human_approver',
+            ttlMs: rule.ttlMs,
+            approvers: rule.approvers,
+          }
         }
       }
     }
   }
 
-  // No rule matched — default branch.
+  // No rule in any tier matched — default branch.
   if (requireAuthored.has(call.tool)) {
     return {
       kind: 'deny',
@@ -407,32 +532,61 @@ export function evaluate(
   return { kind: 'allow' }
 }
 
-/** Does `match` apply to `call`? Every undefined field is a wildcard. */
-function matchApplies(match: MatchSpec, call: ToolCall): boolean {
-  if (match.tool !== undefined && match.tool !== call.tool) return false
-  if (match.channel !== undefined && match.channel !== call.sessionKey.channel) return false
-  if (match.actor !== undefined && match.actor !== call.actor) return false
+/** Tri-state result of `matchApplies` (ccsc-x0t.5).
+ *
+ *  - `'match'`         — the rule applies to the call.
+ *  - `'no_match'`      — the rule genuinely does not apply.
+ *  - `'indeterminate'` — every ENFORCEABLE field matched, but an
+ *    input-dependent predicate (`pathPrefix`/`argEquals`) could not be
+ *    evaluated because the call carries no structured input
+ *    (`inputAvailable === false`). `evaluate()` fails a
+ *    `deny`/`require_approval` rule SAFE to `require` on this signal, and
+ *    skips an `auto_approve`. */
+type MatchOutcome = 'match' | 'no_match' | 'indeterminate'
+
+/** Does `match` apply to `call`? Every undefined field is a wildcard.
+ *
+ *  Enforceable fields (`tool`/`channel`/`thread_ts`/`actor`) are evaluable
+ *  regardless of input availability, so they are checked FIRST and any
+ *  mismatch short-circuits to `'no_match'` — a rule that mismatches one of
+ *  them genuinely does not apply and never reaches the fail-safe path. Only
+ *  when every enforceable field matches do the input-dependent predicates
+ *  run; under `inputAvailable === false` an unevaluable `pathPrefix`/
+ *  `argEquals` yields `'indeterminate'` instead of the pre-x0t.5 fail-open
+ *  `false`. When input IS available (the default), the tri-state collapses
+ *  to the original boolean and behavior is byte-for-byte unchanged. */
+function matchApplies(match: MatchSpec, call: ToolCall): MatchOutcome {
+  if (match.tool !== undefined && match.tool !== call.tool) return 'no_match'
+  if (match.channel !== undefined && match.channel !== call.sessionKey.channel) return 'no_match'
+  if (match.thread_ts !== undefined && match.thread_ts !== call.sessionKey.thread) return 'no_match'
+  if (match.actor !== undefined && match.actor !== call.actor) return 'no_match'
+
+  // Enforceable fields all matched. Input-dependent predicates come next;
+  // they are unevaluable at a call site that carries no structured input.
+  const inputAvailable = call.inputAvailable ?? true
 
   if (match.pathPrefix !== undefined) {
+    if (!inputAvailable) return 'indeterminate'
     const raw = call.input.path
-    if (typeof raw !== 'string') return false
+    if (typeof raw !== 'string') return 'no_match'
     try {
       const resolvedPrefix = canonicalizeRulePathPrefix(match.pathPrefix)
       const resolvedInput = canonicalizeRequestPath(raw)
-      if (!pathMatchesPrefix(resolvedInput, resolvedPrefix)) return false
+      if (!pathMatchesPrefix(resolvedInput, resolvedPrefix)) return 'no_match'
     } catch {
       // Either side failed to resolve: treat as non-match. Fail-closed.
-      return false
+      return 'no_match'
     }
   }
 
   if (match.argEquals !== undefined) {
+    if (!inputAvailable) return 'indeterminate'
     for (const [k, v] of Object.entries(match.argEquals)) {
-      if (!jsonEqual(call.input[k], v)) return false
+      if (!jsonEqual(call.input[k], v)) return 'no_match'
     }
   }
 
-  return true
+  return 'match'
 }
 
 /** Structural equality via JSON round-trip. Good enough for validated
@@ -481,6 +635,32 @@ export function assertUniqueRuleIds(rules: readonly PolicyRule[]): void {
 }
 
 // ---------------------------------------------------------------------------
+// policyDigest() — SHA-256 attestation hash for journal v2 (ccsc-22l)
+// ---------------------------------------------------------------------------
+
+/** Compute a deterministic SHA-256 hash over the canonical JCS form
+ *  of the active PolicyRule[]. Used by the journal writer to populate
+ *  `policy_attestation.digest` on every v2 event.
+ *
+ *  Determinism contract: the same rule set (regardless of input array
+ *  order) produces the same digest. We sort by `id` before
+ *  canonicalizing so the digest depends on the rule SET, not the
+ *  AUTHORING ORDER. This matters because `evaluate()` is order-
+ *  sensitive (first-applicable) but the digest is a content fingerprint
+ *  — two operators who arrive at the same set of rules via different
+ *  edit paths should land on the same digest.
+ *
+ *  Why this lives in policy.ts rather than journal.ts: the digest is
+ *  derived from PolicyRule shapes, which are policy's domain. journal.ts
+ *  treats the digest as an opaque 64-char hex string — see the
+ *  `no-journal-imports-policy` invariant. The digest crosses the
+ *  module boundary as a primitive, not as a structured policy object. */
+export function policyDigest(rules: readonly PolicyRule[]): string {
+  const sorted = [...rules].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
+  return createHash('sha256').update(canonicalJson(sorted)).digest('hex')
+}
+
+// ---------------------------------------------------------------------------
 // detectShadowing() — load-time linter per policy-evaluation-flow.md §199-230
 // ---------------------------------------------------------------------------
 
@@ -490,31 +670,83 @@ export interface ShadowWarning {
   /** The earlier rule that swallows every call the later rule would match. */
   earlier: string
   message: string
+  /** True when the two rules live in different tiers and their matches
+   *  intersect (but neither is a strict subset of the other). False or
+   *  absent for the classic within-tier subset shadow — the existing
+   *  warning shape is preserved for backward compatibility. Added in
+   *  ccsc-4g8 to surface the Workspace-`auto_approve`-overrides-Admin-
+   *  `deny` silent-footgun class that pure subset detection misses. */
+  crossTier?: boolean
 }
 
-/** Static subset-check over MatchSpec fields. A later rule is shadowed
- *  when an earlier rule's match is less-specific-or-equal on every
- *  field. Warn-not-block: the warnings go to stderr at load time so the
- *  operator can reorder or narrow. Never fail-closed — an operator who
- *  intentionally wrote an unreachable rule (e.g., as a placeholder
+/** Static check for two kinds of shadow:
+ *
+ *   1. **Within-tier subset shadow** (existing v0.5.x behavior): a
+ *      later rule's match is fully covered by an earlier rule's match.
+ *      The later rule is never reached.
+ *
+ *   2. **Cross-tier intersection shadow** (ccsc-4g8): a non-Admin
+ *      `auto_approve` rule shares any concrete tool call with an
+ *      Admin `deny` rule. Once `ccsc-8pw` lands and `evaluate()`
+ *      acts on tier precedence, the Admin deny will win — but right
+ *      now (and in any audit that compares the published policy
+ *      surface against what users see), the cross-tier intersection
+ *      is itself ambiguous: which way does the operator intend it to
+ *      resolve? Surfacing as a warning forces the question.
+ *
+ *  Warn-not-block: the warnings go to stderr at load time so the
+ *  operator can reorder or narrow. Never fail-closed — an operator
+ *  who intentionally wrote an unreachable rule (e.g., as a placeholder
  *  during a refactor) shouldn't be forced to delete it just to boot.
  */
 export function detectShadowing(rules: readonly PolicyRule[]): ShadowWarning[] {
   const warnings: ShadowWarning[] = []
+
+  // Pass 1: within-tier subset shadowing (existing behavior, unchanged).
+  // We compare against earlier rules in the same tier — different tiers
+  // resolve via strictest-tier-wins (once ccsc-8pw lands) so they cannot
+  // shadow each other in the classic first-applicable sense.
   for (let j = 1; j < rules.length; j++) {
     const later = rules[j]!
+    const laterTier = effectiveTier(later)
     for (let i = 0; i < j; i++) {
       const earlier = rules[i]!
+      if (effectiveTier(earlier) !== laterTier) continue
       if (matchSubsetOrEqual(earlier.match, later.match)) {
         warnings.push({
           later: later.id,
           earlier: earlier.id,
           message: `rule '${later.id}' is shadowed by earlier rule '${earlier.id}' — every call the later rule would match is already caught by the earlier one`,
+          crossTier: false,
         })
         break // first shadow is sufficient; don't double-report
       }
     }
   }
+
+  // Pass 2: cross-tier intersection — every non-Admin `auto_approve`
+  // checked against every Admin `deny`. Direction matters: we only
+  // surface the dangerous direction (auto_approve from a lower tier
+  // touching the same call space as a higher-tier deny). The reverse
+  // direction (an Admin auto_approve intersecting a User deny) is
+  // intended — it's the Admin tier saying "I override this deny."
+  for (const lowerRule of rules) {
+    if (lowerRule.effect !== 'auto_approve') continue
+    if (effectiveTier(lowerRule) === 'admin') continue
+    for (const adminRule of rules) {
+      if (adminRule.effect !== 'deny') continue
+      if (effectiveTier(adminRule) !== 'admin') continue
+      if (matchesIntersect(lowerRule.match, adminRule.match)) {
+        warnings.push({
+          later: lowerRule.id,
+          earlier: adminRule.id,
+          message: `cross-tier shadow: '${effectiveTier(lowerRule)}'-tier auto_approve rule '${lowerRule.id}' intersects 'admin'-tier deny rule '${adminRule.id}' — operator intent is ambiguous; resolve by narrowing match, retiering, or removing one rule`,
+          crossTier: true,
+        })
+      }
+    }
+  }
+
   return warnings
 }
 
@@ -524,6 +756,15 @@ export function detectShadowing(rules: readonly PolicyRule[]): ShadowWarning[] {
 function matchSubsetOrEqual(outer: MatchSpec, inner: MatchSpec): boolean {
   if (outer.tool !== undefined && outer.tool !== inner.tool) return false
   if (outer.channel !== undefined && outer.channel !== inner.channel) return false
+  // thread_ts (ccsc-x0t.1): mirror matchesIntersect, which already honors it.
+  // Without this, a thread-scoped `outer` was treated as covering EVERY thread,
+  // so detectShadowing / checkMonotonicity false-flagged thread-disjoint rules
+  // (e.g. warned that a rule scoped to thread B is shadowed by one scoped to
+  // thread A, or refused a reload adding a thread-B auto_approve alongside a
+  // thread-A deny). A thread-scoped outer only subsets an inner in the SAME
+  // thread. Enforcement in evaluate() (matchApplies) already compared thread_ts;
+  // this closes the same gap in the subset/monotonicity linters.
+  if (outer.thread_ts !== undefined && outer.thread_ts !== inner.thread_ts) return false
   if (outer.actor !== undefined && outer.actor !== inner.actor) return false
 
   if (outer.pathPrefix !== undefined) {
@@ -541,6 +782,56 @@ function matchSubsetOrEqual(outer: MatchSpec, inner: MatchSpec): boolean {
     if (inner.argEquals === undefined) return false
     for (const [k, v] of Object.entries(outer.argEquals)) {
       if (!jsonEqual(inner.argEquals[k], v)) return false
+    }
+  }
+
+  return true
+}
+
+/** Do `a` and `b` describe overlapping call spaces? Returns true iff
+ *  there exists at least one concrete tool call that both matches
+ *  accept. Used by `detectShadowing()` for the cross-tier intersection
+ *  pass — a strict subset is one form of intersection, but two specs
+ *  can intersect without either being a subset (e.g., one constrains
+ *  tool+channel, the other constrains tool+actor).
+ *
+ *  Field-by-field logic:
+ *    - Exact-match fields (`tool`, `channel`, `thread_ts`, `actor`):
+ *      if both sides constrain the field, the values must be equal.
+ *      Either side leaving the field unconstrained is compatible with
+ *      anything the other side asks.
+ *    - `pathPrefix`: both unconstrained → overlap. One side
+ *      constrains, other doesn't → overlap. Both constrain → one must
+ *      be a prefix of the other (or equal).
+ *    - `argEquals`: the conjunction is the union of both keys with the
+ *      union of the value constraints. They overlap unless they
+ *      disagree on a shared key (same key, different required value).
+ *    - `tier`: intentionally excluded from intersection (tier is
+ *      provenance, not call-space identity — two rules in different
+ *      tiers CAN match the same call, that's the whole point of the
+ *      check).
+ */
+export function matchesIntersect(a: MatchSpec, b: MatchSpec): boolean {
+  if (a.tool !== undefined && b.tool !== undefined && a.tool !== b.tool) return false
+  if (a.channel !== undefined && b.channel !== undefined && a.channel !== b.channel) return false
+  if (a.thread_ts !== undefined && b.thread_ts !== undefined && a.thread_ts !== b.thread_ts) {
+    return false
+  }
+  if (a.actor !== undefined && b.actor !== undefined && a.actor !== b.actor) return false
+
+  if (a.pathPrefix !== undefined && b.pathPrefix !== undefined) {
+    if (
+      a.pathPrefix !== b.pathPrefix &&
+      !a.pathPrefix.startsWith(b.pathPrefix + sep) &&
+      !b.pathPrefix.startsWith(a.pathPrefix + sep)
+    ) {
+      return false
+    }
+  }
+
+  if (a.argEquals !== undefined && b.argEquals !== undefined) {
+    for (const [k, v] of Object.entries(a.argEquals)) {
+      if (k in b.argEquals && !jsonEqual(b.argEquals[k], v)) return false
     }
   }
 
@@ -642,6 +933,69 @@ export function detectBroadAutoApprove(rules: readonly PolicyRule[]): BroadMatch
           `a misconfiguration. Narrow the rule or convert to require_approval.`,
       })
     }
+  }
+  return warnings
+}
+
+// ---------------------------------------------------------------------------
+// detectUnenforceablePredicates() — boot-time honesty warning for rules whose
+// pathPrefix/argEquals predicate the production MCP permission gate cannot
+// evaluate (ccsc-x0t.5). Sibling of detectShadowing / detectBroadAutoApprove.
+// ---------------------------------------------------------------------------
+
+export interface UnenforceablePredicateWarning {
+  ruleId: string
+  /** Which input-dependent predicate(s) the gate cannot evaluate. */
+  predicates: ('pathPrefix' | 'argEquals')[]
+  message: string
+}
+
+/** Flag every rule whose `match` constrains `pathPrefix` or `argEquals`.
+ *
+ *  The sole production caller of `evaluate()` is the MCP `permission_request`
+ *  handler, whose notification carries only an `input_preview` string — no
+ *  structured args. So at that gate these predicates are unevaluable and the
+ *  input-unavailable fail-safe kicks in: a `deny`/`require_approval` rule is
+ *  routed to a human (never silently skipped), and an `auto_approve` rule is
+ *  skipped (never auto-approved on an unconfirmable predicate). Either way the
+ *  rule does NOT behave the way its JSON literally reads against structured
+ *  input.
+ *
+ *  This warning states that plainly at boot so an operator authoring a
+ *  `pathPrefix`/`argEquals` rule is never surprised that it behaves more
+ *  coarsely than written. It names the effective behavior per effect.
+ *
+ *  Warn-not-block (same posture as `detectShadowing` / `detectBroadAutoApprove`):
+ *  the predicate IS enforceable in a test harness or a future MCP surface that
+ *  carries structured args, so an operator shouldn't be blocked from booting.
+ *  Not shadow-detection (unreachable rules), not monotonicity (weakening
+ *  reloads), not broad-auto-approve (over-scoped grants) — a distinct axis:
+ *  "this predicate can't be checked at the live gate, here's what happens
+ *  instead."
+ */
+export function detectUnenforceablePredicates(
+  rules: readonly PolicyRule[],
+): UnenforceablePredicateWarning[] {
+  const warnings: UnenforceablePredicateWarning[] = []
+  for (const rule of rules) {
+    const predicates: ('pathPrefix' | 'argEquals')[] = []
+    if (rule.match.pathPrefix !== undefined) predicates.push('pathPrefix')
+    if (rule.match.argEquals !== undefined) predicates.push('argEquals')
+    if (predicates.length === 0) continue
+
+    const behavior =
+      rule.effect === 'auto_approve'
+        ? 'is SKIPPED (never auto-approved on an unconfirmable predicate)'
+        : 'FAILS SAFE to human approval'
+    warnings.push({
+      ruleId: rule.id,
+      predicates,
+      message:
+        `rule '${rule.id}' constrains ${predicates.join(' + ')}, which the MCP ` +
+        `permission_request gate cannot evaluate (it carries only a preview string, ` +
+        `not structured args). At that gate this ${rule.effect} rule ${behavior}. ` +
+        `See 000-docs/policy-evaluation-flow.md § Input-unavailable fail-safe.`,
+    })
   }
   return warnings
 }
